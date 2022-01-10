@@ -11,14 +11,12 @@ timer on 1
 
 /**************************************************************************
 This do file contain all the compulation of a journal
-Nemo initiated 2021/12/8, last revised 2021/12/8
+Nemo initiated 2021/12/8, last revised 2022/1/10
 ***************************************************************************/
 *unicode encoding set gb18030
 *unicode translate "emprical_crim_963_2021.12.26.dta"
 
 /*baseline*/
-*local site="D:\OneDrive\Teaching\犯罪学\犯罪学实践课\code\"
-*cd `site'
 use "emprical_crim_963_2021.12.26.dta", clear
 
 
@@ -38,13 +36,13 @@ gen method_desc=(m_frq+m_mean+m_sd+m_corstab+m_meancomp)>0
 gen method_infr=(m_chi+m_t_anova+m_cor+m_reg+m_adv)>0
 
 gen method_desc_only=(method_desc==1) & (method_infr==0)
+
 *only one variable
 gen univariate=(m_frq+m_mean+m_sd)>0 & (m_corstab+m_meancomp+m_chi+m_t_anova+m_cor+m_reg+m_adv+m_gis)==0
-
 gen des_freq=(m_frq)>0 & (m_mean+m_sd+m_corstab+m_meancomp+m_chi+m_t_anova+m_cor+m_reg+m_adv+m_gis)==0
 
 
-*是否适用理论
+*whether theory is used 
 gen r_theory_t=( subinstr(r_theory," ","",.))
 gen theory_bin=(r_theory_t!="0" & r_theory_t!="00" )
 
@@ -59,13 +57,10 @@ drop m_gis r_stat_err r_type_err r_concept
 
 
 /**************************************************************************
-part 3 analysis
+part 4 数据分析
 ***************************************************************************/
-
-
-				
 	
-*1.研究框架
+*1.研究设计
 
 *主要指标的描述性统计
 tab1 d_source d_unit d_design d_time d_sampling d_range 
